@@ -1,7 +1,7 @@
 # Hera
 [![travis-ci](https://www.travis-ci.org/thegenius/hera.svg?branch=master)](https://travis-ci.org/thegenius/hera)
 [![codecov](https://codecov.io/gh/thegenius/hera/branch/master/graph/badge.svg)](https://codecov.io/gh/thegenius/hera)
-[![maven-central](https://img.shields.io/badge/maven-1.0.0-green.svg)](http://search.maven.org/#search%7Cga%7C1%7Clogicweaver)
+[![maven-central](https://img.shields.io/badge/maven-0.1-green.svg)](http://search.maven.org/#search%7Cga%7C1%7Clogicweaver)
 [![apache-license](https://img.shields.io/badge/license-Apache--2.0-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)  
 
   
@@ -54,4 +54,23 @@ public class App {
 		}
 	}
 }
+```
+You can run the example within the example directory by following command:
+```
+	cd example/helloworld
+    mvn clean package
+    java -jar target/example-1.0-SNAPSHOT-jar-with-dependencies.jar a &
+    java -jar target/example-1.0-SNAPSHOT-jar-with-dependencies.jar b
+```
+
+## QUICK START
+Now you can use maven to integrate hera with your own project:
+```
+
+```
+<dependency>
+    <groupId>com.lvonce</groupId>
+    <artifactId>hera</artifactId>
+    <version>0.0.1</version>
+</dependency>
 ```
