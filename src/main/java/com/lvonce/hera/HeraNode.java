@@ -9,6 +9,10 @@ public class HeraNode {
 	 	NettyRpcNode.export(service, provider);	
 	}
 
+	public static void start(int port) {
+		NettyRpcNode.start(port);
+	}
+
 	public static<T> T imports(Class<T> service, String host, int port) {
 		return RpcConsumerFactory.create(
 			RpcConsumerFactory.Type.ASM_PROXY, 
