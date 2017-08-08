@@ -35,7 +35,13 @@ public class App {
 		}
 
 		if (args[0].equals("b")) {
-			Service service = RpcConsumerFactory.create(RpcConsumerFactory.Type.ASM_PROXY, Service.class, 2000, "127.0.0.1", 3721);
+			Service service = RpcConsumerFactory.create(
+				RpcConsumerFactory.Type.ASM_PROXY, 
+				Service.class, 
+				2000, 
+				"127.0.0.1", 
+				3721);
+
 			String result = service.hello("World!");
 			RpcLogger.info(App.class, result);
 		}
