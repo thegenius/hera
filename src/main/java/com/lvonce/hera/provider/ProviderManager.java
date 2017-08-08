@@ -16,6 +16,7 @@ import com.lvonce.hera.asm.SignatureUtil;
 
 import io.netty.channel.Channel;
 
+import java.util.Set;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.lang.reflect.Method;
@@ -66,6 +67,14 @@ public class ProviderManager {
 		}
 	}
 
+	private<T> String keySetToString(Set<T> keySet) {
+		StringBuilder builder = new StringBuilder();
+		for(T e : keySet) {
+			builder.append(e.toString());
+		}
+		return builder.toString();
+	}
+
 	public void call(RpcMessageContext context) throws RpcException {
 		RpcMessage message = context.getMessage();
 		RpcLogger.debug(getClass(), "server received msg: " + message.toString());
@@ -76,7 +85,7 @@ public class ProviderManager {
 		String serviceName = request.getScopeName();
 		Provider provider = this.serviceMap.get(serviceName);
 		if (provider == null) {
-			RpcException e = new RpcServiceNotFoundException(request.toString());	
+			RpcException e = new RpcServiceNotFoundException(request.toString() + "available service ----:"+ keySetToString(this.serviceMap.keySet()));	
 			RpcResponse rpcResponse = new RpcResponse(id, e, false);
 			RpcMessage resultMsg = new RpcMessage(1, rpcResponse);
 			channel.writeAndFlush(resultMsg);
