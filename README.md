@@ -1,3 +1,5 @@
+# Hera
+[![travis-ci](https://www.travis-ci.org/thegenius/hera.svg?branch=master)](https://travis-ci.org/thegenius/hera)
 This is a brave new java rpc framework.
 
 Support:  
