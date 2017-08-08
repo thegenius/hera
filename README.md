@@ -15,7 +15,7 @@ This is a brave new java rpc framework.
     [4] clean exception message, when you have trouble then you will have useful tip.	
 
 ## Hello World
-```
+```java
 package com.lvonce;
 
 import com.lvonce.hera.logger.RpcLogger;
