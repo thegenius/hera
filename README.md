@@ -57,7 +57,7 @@ public class App {
 ```
 You can run the example within the example directory by following command:
 ```
-	cd example/helloworld
+    cd example/helloworld
     mvn clean package
     java -jar target/example-1.0-SNAPSHOT-jar-with-dependencies.jar a &
     java -jar target/example-1.0-SNAPSHOT-jar-with-dependencies.jar b
@@ -65,7 +65,6 @@ You can run the example within the example directory by following command:
 
 ## QUICK START
 Now you can use maven to integrate hera with your own project:
-```
 
 ```
 <dependency>
