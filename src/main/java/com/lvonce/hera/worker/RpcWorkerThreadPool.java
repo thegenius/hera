@@ -36,7 +36,7 @@ import com.esotericsoftware.reflectasm.MethodAccess;
 public class RpcWorkerThreadPool implements RpcWorkerService {
 	
 	private final ConcurrentMap<Integer, RpcFuture> invokeIdRpcFutureMap = new ConcurrentHashMap<Integer, RpcFuture>();
-	private final BlockingQueue<RpcMessageContext> messageQueue = new LinkedBlockingQueue<RpcMessageContext>();
+	private final LinkedBlockingQueue<RpcMessageContext> messageQueue = new LinkedBlockingQueue<RpcMessageContext>();
 	private final ExecutorService threadPool;
 	private final ProviderManager providerManager;
 	private final RpcMessageHandler[] handlers;
@@ -57,19 +57,24 @@ public class RpcWorkerThreadPool implements RpcWorkerService {
 			threadPool.execute(
 				()->{
 					RpcMessageContext context = null;
+					int loopCount = 0;
 					while (true) {
 						try {
+							RpcLogger.info(RpcWorkerThreadPool.class, "worker loop ..., msg pool size:" + messageQueue.size());
 							context = this.messageQueue.take();
 							RpcMessage message = context.getMessage();
 							int messageType = message.getMessageType();
 							handlers[messageType].accept(context);	
+						} catch (InterruptedException e) {
+							e.printStackTrace();
 						} catch (RpcException e) {
+							e.printStackTrace();
 							//int id = request.getId();
 							//RpcResponse rpcResponse = new RpcResponse(id, e, false);
 							//Channel channel = request.getChannel();
 							//channel.writeAndFlush(rpcResponse);
 						} catch (Exception e) {
-							//e.printStackTrace();
+							e.printStackTrace();
 							//int id = request.getId();
 							//RpcExecuteException ex = new RpcExecuteException(request.getRpcRequest().toString(), e.toString());
 							//RpcResponse rpcResponse = new RpcResponse(id, e, false);
@@ -80,6 +85,10 @@ public class RpcWorkerThreadPool implements RpcWorkerService {
 				}
 			);
 		}
+	}
+
+	public boolean isShutdown() {
+		return this.threadPool.isShutdown();
 	}
 	
 	public void register(int id, RpcFuture rpcFuture) {

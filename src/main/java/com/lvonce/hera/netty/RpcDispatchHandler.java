@@ -20,7 +20,7 @@ public class RpcDispatchHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {		
-		//RpcLogger.info(RpcDispatchHandler.class, "recieved msg: " + msg.toString());
+		RpcLogger.info(RpcDispatchHandler.class, "recieved msg: " + msg.toString());
 		this.workerService.accept(new RpcMessageContext((RpcMessage)msg, ctx.channel()));
 	}
 
@@ -32,5 +32,6 @@ public class RpcDispatchHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		RpcLogger.info(RpcDispatchHandler.class, "channal active state: " + ctx.channel().isActive());
+		RpcLogger.info(RpcDispatchHandler.class, "worker state: " + this.workerService.isShutdown());
 	}	
 }

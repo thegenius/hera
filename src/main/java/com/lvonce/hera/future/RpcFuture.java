@@ -54,8 +54,11 @@ public class RpcFuture {
 	
 	public Object get(long timeout) throws RpcException {
         try {
+			long startTime = System.nanoTime();
 			boolean awaitSuccess = this.countDownLatch.await(timeout, TimeUnit.MILLISECONDS);
 			if(!awaitSuccess) {
+				long endTime = System.nanoTime();
+				RpcLogger.debug(getClass(), "future get time used: " + (endTime - startTime) +" ns");
 				throw new RpcTimeoutException(this.request.toString());
 			}
 			if (this.state == STATE_SUCCESS) {
@@ -64,6 +67,7 @@ public class RpcFuture {
 				throw new RpcExecuteException(this.request.toString(), "remote node exception: " + throwable.toString());
 			} else {
 				String exceptionMessage = "RpcFuture get("+timeout+") state["+this.state+"] error, the state expect to be SUCCESS or EXCEPTION!";
+				RpcLogger.warn(getClass(), exceptionMessage); 
 				throw new RpcExecuteException(this.request.toString(), exceptionMessage);
 			}
         } catch (Exception e) {

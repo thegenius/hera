@@ -43,9 +43,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class NettyRpcNode {
 	public enum Type{ NONE, ONLY_SERVER, ONLY_CLIENT, BOTH };
-	public static final int ALL_IDEL_TIME_OUT = 40; 
-	public static final	int READ_IDEL_TIME_OUT = 45; 
-	public static final int WRITE_IDEL_TIME_OUT = 50;
+	public static final int ALL_IDEL_TIME_OUT = 45; 
+	public static final	int READ_IDEL_TIME_OUT = 0; 
+	public static final int WRITE_IDEL_TIME_OUT = 0;
 
 	private static final Bootstrap clientBoot;
 	private static final ServerBootstrap serverBoot;

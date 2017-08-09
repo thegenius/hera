@@ -17,7 +17,7 @@ public class HeraNode {
 		return RpcConsumerFactory.create(
 			RpcConsumerFactory.Type.ASM_PROXY, 
 			service, 
-			2000, 
+			0, 
 			host, 
 			port);
 	}
