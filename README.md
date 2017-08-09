@@ -65,3 +65,8 @@ Now you can use maven to integrate hera with your own project:
     <version>0.0.2</version>
 </dependency>
 ```
+
+## DESIGN
+
+![design](https://raw.githubusercontent.com/thegenius/hera/master/doc/hera_design.png)
+
