@@ -26,7 +26,7 @@
 		<dependency>
   			<groupId>com.lvonce</groupId>
   			<artifactId>hera</artifactId>
-  			<version>0.0.1</version>
+  			<version>0.0.2</version>
 		</dependency>
 
     	<dependency>
@@ -41,8 +41,13 @@
 		<plugins>
     		<plugin>
     			<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.0.0</version>
     			<configuration>
-    				<descriptorRefs>jar-with-dependencies</descriptorRefs>
+    				<descriptorRefs>
+    					<descriptorRef>
+							jar-with-dependencies
+    					</descriptorRef>
+					</descriptorRefs>
 					<archive>
 						<manifest>
 							<mainClass>com.lvonce.App</mainClass>
