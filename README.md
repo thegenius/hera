@@ -70,3 +70,15 @@ Now you can use maven to integrate hera with your own project:
 
 ![design](https://raw.githubusercontent.com/thegenius/hera/master/doc/hera_design.png)
 
+
+## ROADMAP
+This framework will follow the following versiont strategy:
+major.minor.fixOrUpdate
+minor with odd number: new futures and new interface
+minor with even number: performance and stablity
+
+Month Realse Note:
+2017.08: Core Structure
+2017.09: Http Support
+
+
