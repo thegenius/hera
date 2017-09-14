@@ -58,8 +58,9 @@ public class HeraNodeTest {
 	public static void startServer() {
 		Thread thread = new Thread() {
 			public void run() {
-				HeraNode.exports(new Provider(), Service.class);
-				HeraNode.start(3721);
+				HeraNode.exports(3721, new Provider(), Service.class);
+				HeraNode.exports(3722, new Provider(), Service.class);
+				HeraNode.run();
 			}
 		};
 		thread.start();
@@ -85,6 +86,11 @@ public class HeraNodeTest {
 		assertEquals(result1, 6);
 		int result2 = service.sum(2, new Integer[]{new Integer(16), new Integer(23), new Integer(41)});
 		assertEquals(result2, 39);
+
+
+		service = HeraNode.imports(Service.class, "127.0.0.1", 3722);
+		sum = service.add(1, 2);
+		assertEquals(sum, 3);
 
 	}
 }

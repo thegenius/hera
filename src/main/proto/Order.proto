@@ -1,0 +1,8 @@
+package com.lvonce;
+
+message Order {
+  required int32 time = 1;
+  required int32 userid = 2;
+  required float price = 3;
+  optional string desc = 4;
+}

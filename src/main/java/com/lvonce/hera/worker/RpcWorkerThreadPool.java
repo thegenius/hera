@@ -95,12 +95,9 @@ public class RpcWorkerThreadPool implements RpcWorkerService {
 		invokeIdRpcFutureMap.put(id, rpcFuture);
 	}
 	
-	public<T> void export(Class<T> interfaceClass, T serviceProvider) {
-		this.providerManager.export(interfaceClass, serviceProvider, null);
-	}
-	
-	public<T> void export(Class<T> interfaceClass, T serviceProvider, String serviceAlias) {
-		this.providerManager.export(interfaceClass, serviceProvider, serviceAlias);
+	@Override
+	public<T> void export(T serviceProvider, Class<T> interfaceClass, Class<?>... serviceAlias) {
+		this.providerManager.export(serviceProvider, interfaceClass, serviceAlias);
 	}
 
 	public void accept(RpcMessageContext message) {

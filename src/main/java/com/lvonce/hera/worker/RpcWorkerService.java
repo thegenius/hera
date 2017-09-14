@@ -8,6 +8,5 @@ public interface RpcWorkerService {
 	public boolean isShutdown();
 	public void accept(RpcMessageContext context);
 	public void register(int id, RpcFuture rpcFuture);
-	public<T> void export(Class<T> serviceInterface, T serviceProvider);
-	public<T> void export(Class<T> serviceInterface, T serviceProvider, String serviceAlias);
+	public<T> void export(T serviceProvider, Class<T> serviceInterface, Class<?> ... serviceAlias);
 }

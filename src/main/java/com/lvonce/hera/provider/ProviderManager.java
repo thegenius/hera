@@ -38,7 +38,7 @@ public class ProviderManager {
 	//	this.export(serviceInterface, serviceProvider, null);
 	//}
 
-	public<T> void export(Class<T> serviceInterface, T serviceProvider, String serviceAlias) {
+	public<T> void export(T serviceProvider, Class<T> serviceInterface, Class<?> ... serviceAlias) {
 		String serviceName = serviceInterface.getName();
 		Provider service = null;
 		if (this.managerType.equals(Type.REFLECTASM)) {
@@ -47,8 +47,8 @@ public class ProviderManager {
 			service = new AsmProvider(serviceInterface, serviceProvider);
 		}
 		this.serviceMap.put(serviceName, service);
-		if (serviceAlias != null) {
-			this.serviceMap.put(serviceAlias, service);
+		for (Class aliasType : serviceAlias) {
+			this.serviceMap.put(aliasType.getName(), service);
 		}
 
 		Method[] methods = serviceInterface.getDeclaredMethods();
@@ -58,8 +58,8 @@ public class ProviderManager {
 			if (signatures == null) {
 				signatures = new LinkedHashSet<String>();
 				signatureMap.put(signatureKey, signatures);
-				if (serviceAlias != null) {
-					String signatureKeyAlias = serviceAlias + "." + method.getName();
+				for (Class aliasType : serviceAlias) {
+					String signatureKeyAlias = aliasType.getName() + "." + method.getName();
 					signatureMap.put(signatureKeyAlias, signatures);
 				}
 			}
@@ -112,8 +112,9 @@ public class ProviderManager {
 			Object result = provider.call(methodName, sigName, request.getArgs());
 			RpcResponse rpcResponse = new RpcResponse(id, result, true);
 			RpcMessage resultMsg = new RpcMessage(1, rpcResponse);
+			context.setMessage(resultMsg);
 			RpcLogger.debug(getClass(), "server result msg: " + resultMsg.toString());
-			channel.writeAndFlush(resultMsg);
+			channel.writeAndFlush(context);
 		} catch (Exception ex) {
 			RpcException e = new RpcExecuteException(request.toString(), ex.getMessage());
 			RpcResponse rpcResponse = new RpcResponse(id, e, false);

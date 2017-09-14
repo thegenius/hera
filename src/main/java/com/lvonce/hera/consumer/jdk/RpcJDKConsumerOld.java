@@ -30,7 +30,8 @@ public class RpcJDKConsumerOld implements InvocationHandler {
 	
 	public RpcFuture call(String methodName, Object ... args) {
 		this.channel = NettyRpcNode.getChannel(host, port, this.channel);	
-		return NettyRpcNode.call(this.channel, scope, methodName, "jdk_sig", args); 
+		//return NettyRpcNode.call(this.channel, scope, methodName, "jdk_sig", args); 
+		return null;
 	}
 	
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {	
